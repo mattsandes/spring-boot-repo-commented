@@ -1,6 +1,7 @@
 package com.project.FirstProject.student;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity //essa anotacao diz que essa classe sera uma tabela no banco de dados;
 @Table //usada para melhor criar a tabela no banco de dados;
@@ -32,6 +34,7 @@ public class Student {
     private String nome;
     private String email;
     private LocalDate dateDeNascimento;
+    @Transient //avisa pra o jpa que o field abaixo nao vai precisar ser incluido no banco de dados;
     private Integer idade;
     
     //getters and setters
@@ -69,7 +72,7 @@ public class Student {
     }
 
     public Integer getIdade() {
-        return idade;
+        return Period.between(this.dateDeNascimento, LocalDate.now()).getYears(); //esse metodo permite com que nao precisemos setar a idade por nos mesmos;
     }
 
     public void setIdade(Integer idade) {
@@ -81,24 +84,22 @@ public class Student {
 
     //construtores;
 
-    public Student(String nome, String email, LocalDate dateDeNascimento, Integer idade) { //constutor sem id (sera gerado pelo banco de dados)
+    public Student(String nome, String email, LocalDate dateDeNascimento) { //constutor sem id (sera gerado pelo banco de dados)
         this.nome = nome;
         this.email = email;
         this.dateDeNascimento = dateDeNascimento;
-        this.idade = idade;
     }
 
-    public Student(Long id, String nome, String email, LocalDate dateDeNascimento, Integer idade) { //construtor completo;
+    public Student(Long id, String nome, String email, LocalDate dateDeNascimento) { //construtor completo;
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.dateDeNascimento = dateDeNascimento;
-        this.idade = idade;
     }
 
     @Override //sobreescrevendo o metodo to string
     public String toString() {
         return "Student [id=" + id + ", nome=" + nome + ", email=" + email + ", dateDeNascimento=" + dateDeNascimento
-                + ", idade=" + idade + "]";
+                + "]";
     }
 }

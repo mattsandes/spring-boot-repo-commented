@@ -1,0 +1,16 @@
+POST http://localhost:8080/my/api/student/postStudent
+Content-Type: application/json
+
+# {
+#     "id": "4",
+#     "nome": "Roberto Carlos",
+#     "email": "roberto.carlos@aidento.com",
+#     "dateDeNascimento": "1988-05-23"
+# }
+
+{
+    "id": "5",
+    "nome": "Marcelo Dentinho",
+    "email": "marcelo.dentinho@aidento.com",
+    "dateDeNascimento": "1899-10-23"
+}

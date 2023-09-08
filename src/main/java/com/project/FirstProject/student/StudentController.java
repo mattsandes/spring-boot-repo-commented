@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "my/api/student") //o caminho para encontrar esse end point sera "locahost:8080/my/api/student"
 public class StudentController {
 
-    //Esse metodo vai servir como um retorno quando um get for feito;
+    //Essa classe vai ficar resonsavle por lancar os metodos que forem requistados a depender da request;
 
     //criando uma referencia para a camada service que servira como adminstrador da logica de negocio para manipular as informacoes;
     private final StudentService studentService;
@@ -27,8 +29,17 @@ public class StudentController {
         this.studentService = studentService; //devemos usar isso com o @Autowired ao invez do exemplo acima;
     }
 
+    //implementado o metodo main;
+
 	@GetMapping("/getStudent") //"hello/" e o que sera visto quando o get for feito;
 	public List<Student> getStudents(){ //passando como um item de uma lista para ficar como json;
         return studentService.getStudents(); //pegando a referencia da classe StudentService;
 	}
+
+    //implementado o metodo post;
+
+    @PostMapping("/postStudent")
+    public void registerNewStudent(@RequestBody Student student){
+        studentService.addNewStudent(student);
+    }
 }
